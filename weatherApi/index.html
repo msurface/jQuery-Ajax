@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Bujumbura Data</title>
+  </head>
+
+  <body>
+    <!-- Retrieved data will be dumped here -->
+    <div class="city"></div>
+    <div class="wind"></div>
+    <div class="humidity"></div>
+    <div class="temp"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      // DOM elements
+      const windDom = document.querySelector('.wind');
+      const humidDom = document.querySelector('.humidity');
+      const tempDom = document.querySelector('.temp');
+      const cityDom = document.querySelector('.city');
+      // Things to accomplish:
+      // Get an API Key from OpenWeatherMap API
+      const weatherKey = '2589a36c92297a9ccbb287a151c67df2';
+      const austin = '4671654';
+      let queryUrl = `http://api.openweathermap.org/data/2.5/weather?id=${austin}&APPID=${weatherKey}`;
+      // Create an AJAX call to retrieve data Log the data in console
+      $.ajax({
+        url: queryUrl,
+        method: 'GET'
+      }).then(response => {
+        console.log(response);
+        // wind speed
+        let windSpeed = response.wind.speed;
+        windDom.innerHTML = `<p> Austin's windspeed is ${windSpeed} mph! </p>`;
+        // humidity
+        let humidity = response.main.humidity;
+        humidDom.innerHTML = `<p> Austin's humidity is ${humidity}! </p>`;
+
+        // temperature
+        let temperature = response.main.temp;
+        tempDom.innerHTML = `<p> Austin's temperature is ${temperature}! </p>`;
+
+        let city = response.name;
+        cityDom.innerHTML = `<h1>We're in ${city}, baby!</h1>`;
+      });
+      // Log the data in HTML
+      // Scream Ushindi (victory in Swahili)! at the top of your lungs
+    </script>
+  </body>
+</html>
