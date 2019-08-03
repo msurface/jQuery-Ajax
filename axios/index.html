@@ -9,16 +9,41 @@
   </head>
   <body>
     <h1>Using Axios to Make a Front-End IMDB request</h1>
-    <script>
-      // setting up the axios reqeust
-      let title = 'space+jam';
+    <form action="" id="movie-form">
+      <label for="movie-input">Search for a Moive</label>
+      <input type="text" id="movie-input" />
+      <input type="submit" id="select-movie" value="Go!" />
+    </form>
+  </body>
+
+  <script>
+    // grabbing needed DOM elements
+    const submitButton = document.getElementById('select-movie');
+    const movieInput = document.getElementById('movie-input');
+    const movieForm = document.getElementById('movie-form');
+    // setting up the axios reqeust
+    function searchMovie(movieTitle) {
+      let title = movieTitle;
       let queryURL =
         'https://www.omdbapi.com/?t=' + title + '&y=&plot=short&apikey=trilogy';
 
       axios
         .get(queryURL)
         .then(response => {
-          console.log(response);
+          console.log(response.data);
+          let baseData = response.data;
+          // create an h1 for the movie title
+
+          // create div for actors in the movie
+          // this will require a loop
+
+          // create a div for year released
+
+          // IMDB rating
+
+          // movie rating -- pg, pg-13, r?
+
+          // paragraph for the plot
         })
         .catch(error => {
           if (error) {
@@ -26,6 +51,18 @@
             console.error(error.message);
           }
         });
-    </script>
-  </body>
+    }
+
+    function handleSubmit(event) {
+      // prevents the form from submitting automatically
+      event.preventDefault();
+      let movieTitle = movieInput.value.trim();
+      searchMovie(movieTitle);
+      // reseting the form after pressing enter -- must happen on the form not the input
+      movieForm.reset();
+    }
+
+    // setting up an event listener on the submit button
+    submitButton.addEventListener('click', handleSubmit);
+  </script>
 </html>
